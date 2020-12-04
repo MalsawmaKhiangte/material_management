@@ -1,0 +1,41 @@
+{% extends "order/home.html" %}
+{% load crispy_forms_tags %}
+{% load  static %}
+
+{% block title %}
+  Log-in
+{% endblock %}
+
+
+
+{% block content %}
+
+<h2>Quatation</h2>
+  <div class="container bar2">
+    <form class="" action="{% url "sendmail:send" order.id %}" method="post">
+      {% csrf_token %}
+      <div class="contact-form justify-content-center">
+      <div class="input-fields">
+        {{form|crispy}}
+      <div class="msg">
+        <input type="submit" class="btn btn-primary" name="" value="Send">
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+{% if messages %}
+{% for message in messages %}
+    {% if message.tags %}{% endif %}
+    <script type="text/javascript">
+      alert('{{message}}')
+    </script>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
+
+{% block 2 %}
+
+{% endblock %}

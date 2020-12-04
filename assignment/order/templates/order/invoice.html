@@ -1,0 +1,169 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<html>
+    <head>
+        <title>Invoice</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{% static "css/pdf.css" %}">
+
+        <style media="screen">
+        @media
+        only screen and (max-width: 760px),
+        (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+          /* Force table to not be like tables anymore */
+          table, thead, tbody, th, td, tr {
+            display: block;
+          }
+
+          /* Hide table headers (but not display: none;, for accessibility) */
+          thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+          }
+
+          tr { border: 4px solid #ccc; }
+
+          td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+          }
+
+          td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+          }
+
+          /*
+          Label the data
+          */
+          .t2 td:nth-of-type(1):before { content: "Item : "; }
+          .t2 td:nth-of-type(2):before { content: "Detail : "; }
+
+          .t1 td:nth-of-type(1):before { content: "Name"; }
+          .t1 td:nth-of-type(2):before { content: "Email"; }
+          .t1 td:nth-of-type(3):before { content: "Address"; }
+          .t1 td:nth-of-type(4):before { content: "Phone"; }
+          .t1 td:nth-of-type(5):before { content: "Pincode"; }
+
+        }
+
+        </style>
+    </head>
+    <body>
+
+            <div style="text-align:center;">
+                <p style="font-size:2em;">Material Management System</p>
+                <p>Invoice No . {{order.id}}</p>
+                Order created on :
+                {{ order.created|date:"M d, Y"}} <br> <br>
+                <div>
+            </div>
+        <div>
+          <hr>
+      </div>
+      <h3 style="text-align:center;"> Bill To</h3>
+              <table class="t1">
+                <thead>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Pin Code</th>
+                </thead>
+                <tr>
+                  <td>{{order.name}}</td>
+                  <td>{{order.email}}</td>
+                  <td>{{order.address}}</td>
+                  <td>{{order.phone}}</td>
+                  <td>{{order.pin_code}}</td>
+                </tr>
+                </thead>
+              </table>
+          </div>
+
+
+          <h3 style="text-align:center;">Order Details</h3>
+
+          <table class="t2">
+            <thead>
+              <th>Item</th>
+              <th>Detail</th>
+            </thead>
+            <tr>
+              <td>Name</td>
+              <td>{{order.material.name}}</td>
+            </tr>
+            <tr>
+              <td>Current District</td>
+              <td>{% if cudis1 %} Aizawl {% elif cudis2 %} Lunglei {% else %} Not Allocated{% endif %}</td>
+            </tr>
+            <tr>
+              <td>Department</td>
+              <td>{{order.material.department}}</td>
+            </tr>
+            <tr>
+              <td>Basic Price</td>
+              <td>Rs. {{order.material.price}}</td>
+            </tr>
+            <tr>
+              <td>Quantity</td>
+              <td>{{order.quantity}}</td>
+            </tr>
+            <tr>
+              <td>Stock</td>
+              <td>{{order.material.quantity}}</td>
+            </tr>
+            <tr>
+              <td>Other Expense : on {{order.material.extra_expense_on}} </td>
+              <td>Rs.{{order.material.expense}}</td>
+            </tr>
+            <tr>
+              <td>Depreciation Rate </td>
+              <td>{{order.material.depreciation_rate}}%</td>
+            </tr>
+            <tr>
+              <td>Total Price</td>
+              <td>Rs. {{grand_total|floatformat:2}}</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>{% if status1 %} Idle {% elif status2 %} Idle {% else %}Not Idle{% endif %}</td>
+            </tr>
+            <tr>
+              <td>Supplier</td>
+              <td>{{order.material.supplier}}</td>
+            </tr>
+
+          </table>
+          <br>
+
+          <p style="text-align:center; size:10px;"> *** Depending on <strong> Stock , Status & current District </strong> the item might take longer than usual to reached the destination </p>
+
+          <div class="box">
+            <form class="" class="one" action="{% url "order:pdf" order.id %}" method="post" target="_blank">
+              {% csrf_token %}
+              <button type="input" class="one" name="button">Print/pdf</button>
+            </form>
+
+            <form class="" class="" action="{% url "order:order_success" order.id %}" method="post">
+              {% csrf_token %}
+              <button type="input" class="two" name="button">Back</button>
+            </form>
+          </div>
+
+
+
+    </body>
+</html>

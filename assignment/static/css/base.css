@@ -1,0 +1,134 @@
+.bar2{
+  color:white;
+  margin-top:10px;
+  padding-bottom: 25em;
+}
+
+.img_resp{
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.bar{
+  padding-top: 30px;
+  margin-top:30px;
+}
+
+.bar1{
+  color:white;
+}
+
+.row{
+  padding: 40px 5px 4px 4px;
+  margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+  .bar{
+    justify-content: center;
+  }
+}
+.f1{
+    background-color:#343339;
+    color:white;
+}
+
+h2{
+  padding: 3px;
+  text-align: center;
+  font-family: 'Sansita Swashed', cursive;
+  color: white;
+}
+
+h3{
+  padding: 3px;
+  text-align: center;
+  font-family: 'Sansita Swashed', cursive;
+  color: black;
+}
+
+
+.tab{
+  overflow-y: auto; height: 1000px;
+  overflow-x: auto;
+}
+
+.tab th{
+  position: sticky;
+  top: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-spacing: 5;
+  width: 100%;
+}
+
+th, td {
+  text-align: center;
+  padding: 8px;
+}
+
+th{
+  background-color: #005aa7;
+}
+
+tr{
+  border-bottom-style: solid;
+}
+
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr { border: 4px solid #ccc; }
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+	td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "District"; }
+	td:nth-of-type(2):before { content: "Name"; }
+	td:nth-of-type(3):before { content: "Address"; }
+	td:nth-of-type(4):before { content: "Category"; }
+	td:nth-of-type(5):before { content: "Material"; }
+	td:nth-of-type(6):before { content: "Quantity"; }
+	td:nth-of-type(7):before { content: "B.Price"; }
+	td:nth-of-type(8):before { content: "UID"; }
+	td:nth-of-type(9):before { content: "Phone"; }
+	td:nth-of-type(10):before { content: "Created On"; }
+  td:nth-of-type(11):before { content: "Complete"; }
+
+}

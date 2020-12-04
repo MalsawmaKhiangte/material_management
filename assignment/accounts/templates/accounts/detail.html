@@ -1,0 +1,99 @@
+{% extends "order/home.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+  Order Detail
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container bar2">
+  <h2>Order by {{order.name}}</h2>
+
+  <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>District</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Category</th>
+          <th>Material</th>
+          <th>Quantity</th>
+          <th>B.Price</th>
+          <th>UID</th>
+          <th>Phone</th>
+          <th>Created On</th>
+          <th>Complete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{order.district}}</td>
+          <td>{{order.name}}</td>
+          <td>{{order.address}}</td>
+          <td>{{order.category}}</td>
+          <td>{{order.material}}</td>
+          <td>{{order.quantity}}</td>
+          <td>{{order.material.price}}</td>
+          <td>{{order.UID}}</td>
+          <td>{{order.phone}}</td>
+          <td>{{order.created}}</td>
+          <td>{{order.complete}}</td>
+        </tr>
+    </tbody>
+  </table>
+</div> <br>
+
+  <h2>Material Details</h2>
+      <img src="{% if material.image %}{{material.image.url}}{% else %}{% static "img/no_img.png" %}{% endif %}" class="img_resp">
+      <p></p>
+      <p>Name : {{order.material.name}}</p>
+      <p>Quantity : {{order.material.quantity}}</p>
+      <p>Current District : {% if cudis1 %}Aizawl{% elif cudis2 %} Lunglei {% else %} Not Allocated{% endif %}
+      <p>Department : {{order.material.department}}</p>
+      <p>Basic Price : Rs. {{order.material.price}}</p>
+      <p>Order Quantity : {{order.quantity}}</p>
+      <p>Other Expense : on {{order.material.extra_expense_on}} Rs.{{order.material.expense}}</p>
+      <p>Depreciation Rate : {{order.material.depreciation_rate}}%</p>
+      <p>Total Price : {{grand_total|floatformat:2}}</p>
+      <p>Status : {% if status1 %}Idle {% elif status2 %}Idle {% else %}Not Idle{% endif %}
+      <p>Supplier : {{order.material.supplier}}</p>
+      <p>
+        {% if less %}
+        {%if line == True %}
+        <form class="reqDis" action="{% url "district:reqDis" order.id %}" method="post">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-primary" name="" value="Request {{order.material.district}} to send {{order.material}} to District {{order.district}} ">
+        </form>
+        {% endif %} <br>
+          <form class="aizawlDis" action="{% url "district:allocateaizawl" order.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" name="" value="Allocate to District {{order.district}} ">
+          </form>
+        {% else %}
+        <p style="color:red;">(Request quantity exceeds stock)</p>
+        <form class="" action="{% url "district:quote" order.id order.district %}" method="post">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-primary" name="" value="Send a msg to Supplier">
+        </form>
+        {% endif %}
+      </p>
+
+  </div>
+
+  {% if messages %}
+  {% for message in messages %}
+      {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+      <script type="text/javascript">
+        alert('{{message}}')
+      </script>
+      {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block 2 %}
+{% endblock %}

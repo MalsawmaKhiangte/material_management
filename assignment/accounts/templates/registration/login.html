@@ -1,0 +1,38 @@
+{% extends "order/home.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+  Log-in
+{% endblock %}
+
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/login.css" %}">
+
+  <main class="main">
+	<div class="wrapper">
+		<div class="card">
+			<div class="title">
+				<h1 class="title title-large" style="color:black;">Sign In</h1>
+				<p class="title title-subs">New user? <span><a href="{% url 'register' %}" class="linktext">Create an account</a></span></p>
+			</div>
+      <form class="" action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {{form.username|as_crispy_field}}
+      {{form.password|as_crispy_field}}
+      <input type="hidden" name="next" value="{{next}}">
+    	<input type="submit" class="btn btn-primary" value="Log in">
+      </form>
+		</div>
+	</div>
+</main>
+
+
+{% endblock %}
+
+{% block 2 %}
+
+{% endblock %}

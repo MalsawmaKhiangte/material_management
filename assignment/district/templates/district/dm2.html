@@ -1,0 +1,109 @@
+{% extends "order/home.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  District Manager
+{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static "css/edit.css" %}">
+
+<style>
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr { border: 4px solid #ccc; }
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+	td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Item Name"; }
+	td:nth-of-type(2):before { content: "Idle"; }
+	td:nth-of-type(3):before { content: "Send"; }
+}
+
+
+</style>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Lunglei District Items</h1>
+    <p>Materials</p>
+  </div>
+</div>
+
+<div class="container tab bar2">
+
+<h2>Items</h2>
+
+<div id="div2">
+
+  <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Idle</th>
+          <th>Send</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in lunglei %}
+        <tr>
+          <td>{{i.material}}</td>
+          <td>{{i.idle}}
+            <a href="{{i.get_absolute_url}}">(Change)</a>
+            </td>
+            <td>
+              <form class="" action="{% url "district:dis_change" i.id %}" method="post">
+                {% csrf_token %}
+                {{forms|crispy}}
+                <input type="submit" class="btn btn-primary" name="" value="Send">
+              </form>
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block 2 %}
+
+{% endblock %}

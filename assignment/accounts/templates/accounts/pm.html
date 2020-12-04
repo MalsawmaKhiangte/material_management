@@ -1,0 +1,118 @@
+{% extends "order/home.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Purchase Manager
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static "css/edit.css" %}">
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Items Ordered</h1>
+  </div>
+</div>
+
+
+<style>
+  tr[data-href]{
+    cursor:pointer;
+  }
+</style>
+
+<div class="container" style="color: white;">
+  <h2>Orders</h2>
+      <form method="get">
+        <div class="form-row">
+          <div class="form-group col-md-4 mb-0">
+            {{ myFilter.form.district|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-4 mb-0">
+            {{ myFilter.form.name|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-4 mb-0">
+            {{ myFilter.form.address|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-4 mb-0">
+            {{ myFilter.form.material|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-4 mb-0">
+            {{ myFilter.form.phone|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-4 mb-0">
+            {{ myFilter.form.complete|as_crispy_field }}
+          </div>         </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary align-center">Search</button>
+          </div>
+      </form>
+      <br>
+</div>
+
+
+  <div class="container tab bar1">
+
+    <div class="tab bar1" style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>District</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Category</th>
+            <th>Material</th>
+            <th>Quantity</th>
+            <th>B.Price</th>
+            <th>UID</th>
+            <th>Phone</th>
+            <th>Created On</th>
+            <th>Complete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in order %}
+          <tr data-href="{{ i.get_absolute_url }}">
+            <td>{{i.district}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.address}}</td>
+            <td>{{i.category}}</td>
+            <td>{{i.material}}</td>
+            <td>{{i.quantity}}</td>
+            <td>{{i.material.price}}</td>
+            <td>{{i.UID}}</td>
+            <td>{{i.phone}}</td>
+            <td>{{i.created}}</td>
+            <td>{{i.complete}}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function(){
+    $('tr[data-href]').click(function(){
+      window.location = $(this).data('href');
+      return false;
+    });
+  });
+</script>
+
+{% if messages %}
+{% for message in messages %}
+    {% if message.tags %} {% endif %}
+    <script type="text/javascript">
+      alert('{{message}}')
+    </script>
+    {% endfor %}
+{% endif %}
+{% endblock %}
+
+
+{% block 2 %}{% endblock %}

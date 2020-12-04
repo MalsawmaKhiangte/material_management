@@ -1,0 +1,82 @@
+body{
+  background-image: url("/static/css/img/home.jpg");
+}
+
+.bar2{
+  color:white;
+  margin-top:10px;
+  padding-bottom: 25em;
+}
+
+.img_resp{
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.bar{
+  padding-top: 30px;
+  margin-top:30px;
+}
+
+.bar1{
+  color:white;
+}
+
+.row{
+  padding: 40px 5px 4px 4px;
+  margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+  .bar{
+    justify-content: center;
+  }
+}
+.f1{
+    background-color:#343339;
+    color:white;
+}
+
+h2{
+  padding: 3px;
+  text-align: center;
+  font-family: 'Sansita Swashed', cursive;
+  color: white;
+}
+
+h3{
+  padding: 3px;
+  text-align: center;
+  font-family: 'Sansita Swashed', cursive;
+  color: black;
+}
+
+
+.tab{
+  overflow-y: auto; height: 1000px;
+}
+
+.tab th{
+  position: sticky;
+  top: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 5;
+  width: 100%;
+}
+
+th, td {
+  text-align: center;
+  padding: 8px;
+}
+
+th{
+  background-color: #005aa7;
+}
+
+tr{
+  border-bottom-style: solid;
+}
