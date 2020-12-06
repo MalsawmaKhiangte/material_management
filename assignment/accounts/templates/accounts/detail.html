@@ -52,7 +52,7 @@
       <img src="{% if material.image %}{{material.image.url}}{% else %}{% static "img/no_img.png" %}{% endif %}" class="img_resp">
       <p></p>
       <p>Name : {{order.material.name}}</p>
-      <p>Quantity : {{order.material.quantity}}</p>
+      <p>Quantity (Stock): {{order.material.quantity}}</p>
       <p>Current District : {% if cudis1 %}Aizawl {% endif %}{%if cudis2 %} Lunglei {% endif %} {% if not cudis1 and not cudis2 %}Not Allocated{% endif %}
       <p>Department : {{order.material.department}}</p>
       <p>Basic Price : Rs. {{order.material.price}}</p>
