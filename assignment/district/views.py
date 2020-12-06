@@ -45,10 +45,14 @@ def allocateaizawl(request , id):
     order = get_object_or_404(Order, id=id)
     if order.district == 'Aizawl':
         aizawl = Aizawl.objects.create(material=order.material)
+        order.material.quantity -= order.quantity
         aizawl.save()
+        order.material.save()
     else:
         lunglei = Lunglei.objects.create(material = order.material)
+        order.material.quantity -= order.quantity
         lunglei.save()
+        order.material.save()
     order.complete=True
     order.save()
     messages.success(request , "allocated to " + str(order.district))
