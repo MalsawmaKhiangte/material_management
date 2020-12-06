@@ -53,7 +53,7 @@
       <p></p>
       <p>Name : {{order.material.name}}</p>
       <p>Quantity : {{order.material.quantity}}</p>
-      <p>Current District : {% if cudis1 %}Aizawl{% elif cudis2 %} Lunglei {% else %} Not Allocated{% endif %}
+      <p>Current District : {% if cudis1 %}Aizawl {% endif %}{%if cudis2 %} Lunglei {% endif %} {% if not cudis1 and not cudis2 %}Not Allocated{% endif %}
       <p>Department : {{order.material.department}}</p>
       <p>Basic Price : Rs. {{order.material.price}}</p>
       <p>Order Quantity : {{order.quantity}}</p>
