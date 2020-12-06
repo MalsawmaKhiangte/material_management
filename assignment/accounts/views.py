@@ -57,11 +57,11 @@ def order_detail(request , id):
 
     for i in aizawl:
         if (str(i.material) == str(order.material)):
-            status = i.idle
+            status1 = i.idle
             cudis1 = True
     for l in lunglei:
         if (str(l.material) == str(order.material)):
-            status = l.idle
+            status2 = l.idle
             cudis2 = True
     return render(request , 'accounts/detail.html', {'order':order ,
                                                     'material':material ,
